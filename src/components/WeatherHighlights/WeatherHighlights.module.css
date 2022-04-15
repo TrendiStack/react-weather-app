@@ -1,0 +1,27 @@
+.todaysHighlights {
+  background: #1e213a;
+  color: #e7e7eb;
+  height: 204px;
+  width: 328px;
+  text-align: center;
+  margin: 30px 0;
+}
+
+.status {
+  font-size: 16px;
+  margin: 22px 0 0 0;
+}
+
+.speed {
+  font-size: 64px;
+  margin: 10px 0 0 0;
+}
+
+.speed > span {
+  font-size: 40px;
+}
+
+.compass {
+  font-size: 16px;
+  margin: 30px 0 0 0;
+}

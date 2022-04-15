@@ -1,0 +1,25 @@
+.cardContainer {
+  background-color: #1e213a;
+  height: 177px;
+  margin: 0 0 30px 25px;
+  padding-top: 5px;
+  text-align: center;
+  width: 120px;
+}
+
+.dayText {
+  color: #e7e7eb;
+  font-size: 16px;
+}
+
+.image {
+  height: 62px;
+  width: 50px;
+}
+
+.temperature {
+  color: #e7e7eb;
+  display: flex;
+  font-size: 16px;
+  justify-content: space-around;
+}

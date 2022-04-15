@@ -1,0 +1,105 @@
+.weatherImageContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: -100px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.weatherImageContainer > img {
+  opacity: 20%;
+  position: relative;
+  width: 130px;
+}
+.cloudsOne {
+  left: -50px;
+}
+
+.cloudsTwo {
+  left: 60px;
+}
+
+.cloudsThree {
+  top: 30px;
+  left: -10px;
+}
+
+.cloudsFour {
+  top: 60px;
+  right: -40px;
+}
+
+.abbrImage {
+  position: absolute;
+  top: -185px;
+  left: 129px;
+}
+
+.weatherTemp {
+  color: #e7e7eb;
+  font-size: 100px;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+}
+
+.weatherState {
+  color: #a09fb1;
+  font-size: 36px;
+  margin: 0;
+  text-align: center;
+}
+
+.dateContainer {
+  color: #88869d;
+  display: flex;
+  font-size: 18px;
+  font-weight: 500;
+  justify-content: space-evenly;
+  margin: 0 80px 0 110px;
+}
+
+.locationName {
+  color: #88869d;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  text-align: center;
+}
+
+.weeklyWeatherContainer {
+  background: #100e1d;
+  margin-top: 150px;
+  padding: 20px 0;
+}
+
+.weeklyWeather {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 40px;
+}
+
+.hightlightContainer {
+  background: #100e1d;
+  margin-top: -50px;
+  padding-bottom: 137px;
+}
+
+.hightlightContainer > div {
+  color: white;
+}
+
+.hightlight {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 40px;
+  font-size: 12px;
+}
+
+.creator {
+  color: white;
+  background: #100e1d;
+  margin-top: -50px;
+  text-align: center;
+}
