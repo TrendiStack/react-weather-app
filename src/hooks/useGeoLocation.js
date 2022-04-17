@@ -5,6 +5,10 @@ const useGeoLocation = () => {
     loaded: false,
     coordinates: { lat: "", lng: "" },
   });
+  const isLoaded =
+    location &&
+    location.coordinates.lng !== "" &&
+    location.coordinates.lat !== "";
 
   const onSuccess = (location) => {
     setLocation({
