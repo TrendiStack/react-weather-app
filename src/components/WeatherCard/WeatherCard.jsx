@@ -4,7 +4,9 @@ import styles from "./WeatherCard.module.css";
 
 const WeatherCard = (props) => {
   const { day } = props;
-  const date = new Date(day.applicable_date.replaceAll("-", ","));
+  const dateObj = new Date(day.dt * 1000);
+  const humanFormattedDate = dateObj.toLocaleString();
+  const date = new Date(humanFormattedDate);
   const today = new Date();
   let formattedDate = "";
   const daysOfWeek = {
@@ -34,7 +36,7 @@ const WeatherCard = (props) => {
 
   const msBetweenDates = Math.abs(date.getTime() - today.getTime());
   const hoursBetweenDates = msBetweenDates / (60 * 60 * 1000);
-  if (hoursBetweenDates < 24) {
+  if (hoursBetweenDates < 0) {
     formattedDate = "Tomorrow";
   } else {
     formattedDate = `${daysOfWeek[date.getDay()]}, ${date.getDate()} ${
@@ -47,12 +49,12 @@ const WeatherCard = (props) => {
       <p className={styles.dayText}>{formattedDate}</p>
       <img
         className={styles.image}
-        src={`https://www.metaweather.com/static/img/weather/png/64/${day.weather_state_abbr}.png`}
+        src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
         alt=""
       />
       <div className={styles.temperature}>
-        <p>{day.max_temp.toString().slice(0, 4)} C</p>
-        <p>{day.min_temp.toString().slice(0, 4)} C</p>
+        <p>{Math.round(day.temp.max)} C</p>
+        <p>{Math.round(day.temp.min)} C</p>
       </div>
     </div>
   );

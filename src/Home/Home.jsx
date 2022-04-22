@@ -1,24 +1,97 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 import SearchButton from "../components/SearchButton/SearchButton";
-import useGetDate from "../hooks/useGetDate";
 import WeatherCard from "../components/WeatherCard/WeatherCard";
 
 import cloudImage from "../images/cloud_white_24dp.svg";
 import styles from "./Home.module.css";
 import WeatherHighlights from "../components/WeatherHighlights/WeatherHighlights";
-import useGetWeather from "../hooks/useGetWeather";
+import useGetDate from "../utils/useGetDate";
 
 const Home = () => {
-  const FullDate = useGetDate();
-  const forecast = useGetWeather();
-  const isLoaded =
-    forecast && forecast.currentDay !== null && forecast.weekly !== null;
+  const date = useGetDate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [currentWeather, setCurrentWeather] = useState(null);
+  const [forecastWeather, setForecastWeather] = useState(null);
+  const [location, setLocation] = useState({
+    city: "",
+    country: "",
+  });
+  const [temp, setTemp] = useState({
+    max: "",
+    min: "",
+  });
+  const [coordinates, setCoordinates] = useState({
+    longitude: "",
+    latitude: "",
+  });
+  const { longitude, latitude } = coordinates;
 
-  const { currentDay, weekly } = forecast;
+  useEffect(() => {
+    const apiKey = "8bd397c0608f76a2e6b4d5376a4341ad";
+    const baseUrl = "https://api.openweathermap.org/data/2.5/weather";
+
+    const fetchData = async () => {
+      window.navigator.geolocation.getCurrentPosition((position) => {
+        setCoordinates({
+          longitude: position.coords.longitude,
+          latitude: position.coords.latitude,
+        });
+      });
+      const getWeather = async () => {
+        setError(false);
+        try {
+          if (longitude !== "" && latitude !== "") {
+            await axios
+              .get(
+                `${baseUrl}?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`
+              )
+              .then((res) => {
+                console.log(res.data);
+                setLocation({
+                  city: res.data.name,
+                  country: res.data.sys.country,
+                });
+                setTemp({
+                  max: res.data.temp_max,
+                  min: res.data.temp_min,
+                });
+                if (res.data) {
+                  try {
+                    axios
+                      .get(
+                        `https://api.openweathermap.org/data/2.5/onecall?lat=${res.data.coord.lat}&lon=${res.data.coord.lon}&exclude=hourly,minutely,alerts&units=metric&appid=${apiKey}`
+                      )
+                      .then((res) => {
+                        console.log(res.data);
+                        setCurrentWeather(res.data.current);
+                        setForecastWeather(res.data.daily);
+                        setLoading(true);
+                      });
+                  } catch (error) {
+                    console.log(error);
+
+                    setError(true);
+                  }
+                }
+              });
+          }
+        } catch (error) {
+          console.log(error);
+
+          setError(true);
+        }
+      };
+      getWeather();
+    };
+    fetchData();
+  }, [latitude, longitude]);
 
   return (
     <>
-      {isLoaded ? (
+      {loading ? (
         <div className={styles.pageContainer}>
           <SearchButton />
           <div className={styles.weatherImageContainer}>
@@ -28,27 +101,32 @@ const Home = () => {
             <img className={styles.cloudsFour} src={cloudImage} alt="" />
             <img
               className={styles.abbrImage}
-              src={`https://www.metaweather.com/static/img/weather/png/${"lc"}.png`}
+              src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
               alt=""
             />
           </div>
           <div className={styles.todaysWeatherContainer}>
-            <h1 className={styles.weatherTemp}>{currentDay.the_temp}</h1>
+            <h1 className={styles.weatherTemp}>
+              {Math.round(currentWeather.temp)}
+            </h1>
             <p className={styles.weatherState}>
-              {currentDay.weather_state_name}
+              {currentWeather ? currentWeather.weather[0].main : ""}
             </p>
             <div className={styles.dateContainer}>
               <p>Today</p>
               <p>.</p>
-              <p className={styles.month}>{FullDate}</p>
+              <p className={styles.month}>{date}</p>
             </div>
-            <p className={styles.locationName}>Toronto</p>
+            <p
+              className={styles.locationName}
+            >{`${location.city}, ${location.country}`}</p>
           </div>
           <div className={styles.weeklyWeatherContainer}>
             <div className={styles.weeklyWeather}>
-              {weekly.map((day) => (
+              {forecastWeather.map((day) => (
                 <WeatherCard day={day} />
               ))}
+              {/* <WeatherCard /> */}
             </div>
           </div>
           <div className={styles.hightlightContainer}>
@@ -63,7 +141,7 @@ const Home = () => {
           <p className={styles.creator}>Created by @UziStacks</p>
         </div>
       ) : (
-        <h1>hi</h1>
+        <h1>loading</h1>
       )}
     </>
   );
