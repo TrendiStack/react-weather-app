@@ -19,10 +19,6 @@ const Home = () => {
     city: "",
     country: "",
   });
-  const [temp, setTemp] = useState({
-    max: "",
-    min: "",
-  });
   const [coordinates, setCoordinates] = useState({
     longitude: "",
     latitude: "",
@@ -54,10 +50,6 @@ const Home = () => {
                   city: res.data.name,
                   country: res.data.sys.country,
                 });
-                setTemp({
-                  max: res.data.temp_max,
-                  min: res.data.temp_min,
-                });
                 if (res.data) {
                   try {
                     axios
@@ -70,7 +62,7 @@ const Home = () => {
                         setForecastWeather(res.data.daily);
                         setLoading(true);
                       });
-                  } catch (error) {
+                  } catch {
                     console.log(error);
 
                     setError(true);
@@ -78,7 +70,7 @@ const Home = () => {
                 }
               });
           }
-        } catch (error) {
+        } catch {
           console.log(error);
 
           setError(true);
@@ -87,7 +79,7 @@ const Home = () => {
       getWeather();
     };
     fetchData();
-  }, [latitude, longitude]);
+  }, [latitude, longitude, error]);
 
   return (
     <>
@@ -108,34 +100,32 @@ const Home = () => {
           <div className={styles.todaysWeatherContainer}>
             <h1 className={styles.weatherTemp}>
               {Math.round(currentWeather.temp)}
+              <span className={styles.celText}>°C</span>
             </h1>
             <p className={styles.weatherState}>
-              {currentWeather ? currentWeather.weather[0].main : ""}
+              {currentWeather.weather[0].main}
             </p>
             <div className={styles.dateContainer}>
               <p>Today</p>
               <p>.</p>
               <p className={styles.month}>{date}</p>
             </div>
-            <p
-              className={styles.locationName}
-            >{`${location.city}, ${location.country}`}</p>
+            <p className={styles.locationName}>
+              <i className={`fa-solid fa-location-dot`} />{" "}
+              {`${location.city}, ${location.country}`}
+            </p>
           </div>
           <div className={styles.weeklyWeatherContainer}>
             <div className={styles.weeklyWeather}>
               {forecastWeather.map((day) => (
                 <WeatherCard day={day} />
               ))}
-              {/* <WeatherCard /> */}
             </div>
           </div>
           <div className={styles.hightlightContainer}>
+            <h1>Todays Highlights</h1>
             <div className={styles.hightlight}>
-              <h1>Todays Highlights</h1>
-              <WeatherHighlights />
-              <WeatherHighlights />
-              <WeatherHighlights />
-              <WeatherHighlights />
+              <WeatherHighlights stats={currentWeather} />
             </div>
           </div>
           <p className={styles.creator}>Created by @UziStacks</p>

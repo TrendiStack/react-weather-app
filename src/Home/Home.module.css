@@ -2,9 +2,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-bottom: -100px;
-  width: 100%;
+  margin-bottom: -150px;
   overflow: hidden;
+  width: 100%;
 }
 
 .weatherImageContainer > img {
@@ -31,9 +31,10 @@
 }
 
 .abbrImage {
+  left: 100px;
   position: absolute;
-  top: -185px;
-  left: 129px;
+  top: -210px;
+  width: 200px !important;
 }
 
 .weatherTemp {
@@ -44,10 +45,14 @@
   text-align: center;
 }
 
+.celText {
+  font-size: 60px;
+}
+
 .weatherState {
   color: #a09fb1;
   font-size: 36px;
-  margin: 0;
+  margin: 20px 0 20px;
   text-align: center;
 }
 
@@ -57,7 +62,7 @@
   font-size: 18px;
   font-weight: 500;
   justify-content: space-evenly;
-  margin: 0 80px 0 110px;
+  margin: 0 50px 20px 60px;
 }
 
 .locationName {
@@ -77,7 +82,7 @@
 .weeklyWeather {
   display: flex;
   flex-wrap: wrap;
-  margin: 40px;
+  justify-content: center;
 }
 
 .hightlightContainer {
@@ -86,20 +91,22 @@
   padding-bottom: 137px;
 }
 
-.hightlightContainer > div {
+.hightlightContainer > h1 {
   color: white;
+  margin-left: 21px;
 }
 
 .hightlight {
   display: flex;
   flex-wrap: wrap;
-  margin: 40px;
   font-size: 12px;
+  justify-content: center;
+  margin: 0px 40px 0px 40px;
 }
 
 .creator {
-  color: white;
   background: #100e1d;
+  color: white;
   margin-top: -50px;
   text-align: center;
 }

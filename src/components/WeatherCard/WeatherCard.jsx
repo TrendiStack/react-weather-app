@@ -7,7 +7,7 @@ const WeatherCard = (props) => {
   const dateObj = new Date(day.dt * 1000);
   const humanFormattedDate = dateObj.toLocaleString();
   const date = new Date(humanFormattedDate);
-  const today = new Date();
+  // const today = new Date();
   let formattedDate = "";
   const daysOfWeek = {
     1: "Mon",
@@ -34,16 +34,11 @@ const WeatherCard = (props) => {
     12: "Dec",
   };
 
-  const msBetweenDates = Math.abs(date.getTime() - today.getTime());
-  const hoursBetweenDates = msBetweenDates / (60 * 60 * 1000);
-  if (hoursBetweenDates < 0) {
-    formattedDate = "Tomorrow";
-  } else {
-    formattedDate = `${daysOfWeek[date.getDay()]}, ${date.getDate()} ${
-      months[date.getMonth()]
-    }`;
-  }
-
+  // const msBetweenDates = Math.abs(date.getTime() - today.getTime());
+  // const hoursBetweenDates = msBetweenDates / (60 * 60 * 1000);
+  formattedDate = `${daysOfWeek[date.getDay()]}, ${date.getDate()} ${
+    months[date.getMonth()]
+  }`;
   return (
     <div className={styles.cardContainer}>
       <p className={styles.dayText}>{formattedDate}</p>
@@ -53,8 +48,8 @@ const WeatherCard = (props) => {
         alt=""
       />
       <div className={styles.temperature}>
-        <p>{Math.round(day.temp.max)} C</p>
-        <p>{Math.round(day.temp.min)} C</p>
+        <p>{`${Math.round(day.temp.max)}°C`}</p>
+        <p>{`${Math.round(day.temp.min)}°C`}</p>
       </div>
     </div>
   );
