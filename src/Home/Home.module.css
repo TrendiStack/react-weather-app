@@ -90,6 +90,42 @@
 }
 
 @media screen and (max-width: 1024px) {
+  .cloudsOne {
+    display: none;
+  }
+
+  .cloudsTwo {
+    display: none;
+  }
+
+  .cloudsThree {
+    display: none;
+  }
+
+  .cloudsFour {
+    display: none;
+  }
+
+  .abbrImage {
+    top: 50vh;
+    left: 38vw;
+  }
+
+  .weatherTemp {
+    font-size: 10rem;
+  }
+
+  .weatherState {
+    font-size: 5rem;
+  }
+
+  .dateContainer {
+    font-size: 2.5rem;
+  }
+
+  .locationName {
+    font-size: 3rem;
+  }
   .hightlight {
     /* margin: 0 60px 0 60px; */
     gap: 20px;
