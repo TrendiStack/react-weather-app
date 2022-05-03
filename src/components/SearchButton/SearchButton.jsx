@@ -1,12 +1,18 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import Home from "../../Home/Home";
 import Form from "../Form/Form";
+import axios from "axios";
 
 import styles from "./SearchButton.module.css";
 
 const SearchButton = () => {
   const [open, setOpen] = useState(false);
   const openSearch = () => setOpen(!open);
+  const [city, setCity] = useState();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+  };
   return (
     <>
       {!open && (
@@ -18,6 +24,7 @@ const SearchButton = () => {
         </div>
       )}
       {open && <Form close={openSearch} />}
+      <Home />
     </>
   );
 };

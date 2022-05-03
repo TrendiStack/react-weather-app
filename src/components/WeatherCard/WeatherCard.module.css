@@ -30,3 +30,23 @@
 .temperature > p {
   margin: 0;
 }
+
+@media screen and (min-width: 1200px) {
+  .cardContainer {
+    height: 235px;
+    width: 220px;
+  }
+
+  .dayText {
+    font-size: 1.5rem;
+  }
+
+  .image {
+    height: 120px;
+    width: 120px;
+  }
+
+  .temperature {
+    font-size: 1.5rem;
+  }
+}

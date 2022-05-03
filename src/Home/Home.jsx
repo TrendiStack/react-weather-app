@@ -57,7 +57,6 @@ const Home = () => {
                         `https://api.openweathermap.org/data/2.5/onecall?lat=${res.data.coord.lat}&lon=${res.data.coord.lon}&exclude=hourly,minutely,alerts&units=metric&appid=${apiKey}`
                       )
                       .then((res) => {
-                        console.log(res.data);
                         setCurrentWeather(res.data.current);
                         setForecastWeather(res.data.daily);
                         setLoading(true);
@@ -85,35 +84,36 @@ const Home = () => {
     <>
       {loading ? (
         <div className={styles.pageContainer}>
-          <SearchButton />
-          <div className={styles.weatherImageContainer}>
-            <img className={styles.cloudsOne} src={cloudImage} alt="" />
-            <img className={styles.cloudsTwo} src={cloudImage} alt="" />
-            <img className={styles.cloudsThree} src={cloudImage} alt="" />
-            <img className={styles.cloudsFour} src={cloudImage} alt="" />
-            <img
-              className={styles.abbrImage}
-              src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
-              alt=""
-            />
-          </div>
-          <div className={styles.todaysWeatherContainer}>
-            <h1 className={styles.weatherTemp}>
-              {Math.round(currentWeather.temp)}
-              <span className={styles.celText}>°C</span>
-            </h1>
-            <p className={styles.weatherState}>
-              {currentWeather.weather[0].main}
-            </p>
-            <div className={styles.dateContainer}>
-              <p>Today</p>
-              <p>.</p>
-              <p className={styles.month}>{date}</p>
+          <div className={styles.mainWeather}>
+            <div className={styles.weatherImageContainer}>
+              <img className={styles.cloudsOne} src={cloudImage} alt="" />
+              <img className={styles.cloudsTwo} src={cloudImage} alt="" />
+              <img className={styles.cloudsThree} src={cloudImage} alt="" />
+              <img className={styles.cloudsFour} src={cloudImage} alt="" />
+              <img
+                className={styles.abbrImage}
+                src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
+                alt=""
+              />
             </div>
-            <p className={styles.locationName}>
-              <i className={`fa-solid fa-location-dot`} />{" "}
-              {`${location.city}, ${location.country}`}
-            </p>
+            <div className={styles.todaysWeatherContainer}>
+              <h1 className={styles.weatherTemp}>
+                {Math.round(currentWeather.temp)}
+                <span className={styles.celText}>°C</span>
+              </h1>
+              <p className={styles.weatherState}>
+                {currentWeather.weather[0].main}
+              </p>
+              <div className={styles.dateContainer}>
+                <p>Today</p>
+                <p>.</p>
+                <p className={styles.month}>{date}</p>
+              </div>
+              <p className={styles.locationName}>
+                <i className={`fa-solid fa-location-dot`} />{" "}
+                {`${location.city}, ${location.country}`}
+              </p>
+            </div>
           </div>
           <div className={styles.weeklyWeatherContainer}>
             <div className={styles.weeklyWeather}>
